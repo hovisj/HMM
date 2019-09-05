@@ -74,6 +74,7 @@ def with_decoding(smoothers, viterbi, time, data, max_num_bins_bead, max_iterati
     arrayPi_list = []
     matrixA_list = []
     arrayMeanCounts_list = []
+    loglikelihood_list = []
 
     #############################
     ####  Main Algorithm  #######
@@ -91,6 +92,7 @@ def with_decoding(smoothers, viterbi, time, data, max_num_bins_bead, max_iterati
         # Decided Whether to Maximize or Stop
         num_iterations = num_iterations + 1
         if (num_iterations < max_iterations and loglikelihood > old_loglikelihood):
+            loglikelihood_list.append(loglikelihood)
             old_loglikelihood = loglikelihood
 
             # Save arrayPi, arrayMeanCounts, matrixA for Each Iteration
@@ -123,8 +125,9 @@ def with_decoding(smoothers, viterbi, time, data, max_num_bins_bead, max_iterati
     arrayPi_alliters = np.asarray(arrayPi_list)
     arrayMeanCounts_alliters = np.asarray(arrayMeanCounts_list)
     matrixA_alliters = np.asarray(matrixA_list)
+    loglikelihood_alliters = np.asarray(loglikelihood_list)
 
-    return final_info_array, array_of_composite_bead_arrays, row, arrayPi_alliters, arrayMeanCounts_alliters, matrixA_alliters
+    return final_info_array, array_of_composite_bead_arrays, row, arrayPi_alliters, arrayMeanCounts_alliters, matrixA_alliters, loglikelihood_alliters
 
 
 def save_arrays_each_iter(arrayPi, arrayMeanCounts, matrixA, arrayPi_list, arrayMeanCounts_list, matrixA_list):

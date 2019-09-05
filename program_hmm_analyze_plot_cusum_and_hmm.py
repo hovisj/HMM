@@ -9,7 +9,7 @@ import hmm_arrayPi_arrayMeanCounts_matrixA_module
 
 def variables():
     ####       HMM  & CUSUM      #################
-    bin_width = 2e-5   # scalar
+    bin_width = 1e-5   # scalar
     lambda_0_analysis = 0.4e5  # scalar
     lambda_1_analysis = 2e5  # scalar
 
@@ -17,7 +17,7 @@ def variables():
     num_for_bead_geometric = np.array([5])   # array
     stay_background = (1 - 1e-7)   # scalar
     stay_bead = 0.8    # scalar
-    max_iterations = 5   # scalar
+    max_iterations = 1   # scalar
 
     ####       CUSUM        #################
     ####  Type of Analysis  ##################
@@ -32,7 +32,7 @@ def variables():
     ####  File Open Information  ########
     ####  Data (or Simulation)   ########
     subset_data = 1   # 0 no, 1 yes
-    num_photons_subset = 500000    #Number of photons in subset - subset will be picked randomly from data
+    num_photons_subset = 5000    #Number of photons in subset - subset will be picked randomly from data
     file_open_location = '/Users/jenniferhovis/documents/fluxus_josh/data/LargeParticle3June24/'
     open_filename = '100fM'
     open_filename_extension = '.npy'  # Choices are '.npy' and '.bin'
@@ -89,6 +89,14 @@ def main():
                 hmm_plotting_module.plot_HMM_CUSUM(changepoints_smoothers[k], changepoints_viterbi[k], trip_changpoint_numtrips_direction_nummerge_2way, time_data, bin_width[0])
             else:
                 hmm_plotting_module.plot_HMM_CUSUM_Peaks(peaks[1], changepoints_smoothers[k], changepoints_viterbi[k], trip_changpoint_numtrips_direction_nummerge_2way, time_data, bin_width[0])
+
+        for k in range(num_iterations):
+            if peaks[0] == 0:
+                hmm_plotting_module.plot_HMM_CUSUM(changepoints_smoothers[k], changepoints_viterbi[k],
+                                                   trip_changpoint_numtrips_direction_nummerge_2way, time_data,
+                                                   bin_width[0])
+            else:
+                hmm_plotting_module.plot_HMM_CUSUM_Peaks_rectangles(peaks[1], changepoints_smoothers[k], changepoints_viterbi[k], trip_changpoint_numtrips_direction_nummerge_2way, time_data, bin_width[0])
 
             print("Sum ArrayPi: ", np.sum(arrayPi[k]), "  ArrayPi ", arrayPi[k])
             print("Array Mean Counts ", arrayMeanCounts[k])

@@ -33,7 +33,7 @@ def variables():
 
     ####  File Open Information  ########
     subset_data = 1   # 0 no, 1 yes
-    fraction_of_photons_for_subset = 0.4  # value must be <= 1
+    fraction_of_photons_for_subset = 0.4  # value must be <= 1; goes from start of data
 
     file_open_location = '/Users/jenniferhovis/documents/fluxus_josh/data/LargeParticle3June24/'
     open_filename = np.array(['100fM']) #array
@@ -80,7 +80,7 @@ def main():
             arrayPi, arrayMeanCounts, matrixA, max_n, n = hmm_arrayPi_arrayMeanCounts_matrixA_module.get_hmm_parameters(stay_background[i], hmm_parameters[2], hmm_parameters[4], hmm_parameters[5], bin_width, num_for_bead_geometric[j], np.max(num_for_bead_geometric))
 
             ####   Baum-Welch  &   Analysis (Decoding, Changepoints, Composite Bead, Statistics, Add to Arrays for Saving)     ######
-            arrayPi_alliters, arrayMeanCounts_alliters, matrixA_alliters, final_info_array, array_of_composite_bead_arrays, row, arrayPi_arraytosave, arrayMeanCounts_arraytosave, matrixA_arraytosave = hmm_analysis_module.baum_welch_plus_analysis(hmm_analysis[0], hmm_analysis[1], time, data, 50, hmm_parameters[3], concentration[i], bin_width, fraction_of_photons_for_subset, arrayPi, arrayMeanCounts, matrixA, row, final_info_array, array_of_composite_bead_arrays, n, max_n, num_for_bead_geometric[j], np.max(num_for_bead_geometric), arrayPi_arraytosave, arrayMeanCounts_arraytosave, matrixA_arraytosave)
+            arrayPi_alliters, arrayMeanCounts_alliters, matrixA_alliters, loglikelihood_alliters, final_info_array, array_of_composite_bead_arrays, row, arrayPi_arraytosave, arrayMeanCounts_arraytosave, matrixA_arraytosave = hmm_analysis_module.baum_welch_plus_analysis(hmm_analysis[0], hmm_analysis[1], time, data, 50, hmm_parameters[3], concentration[i], bin_width, fraction_of_photons_for_subset, arrayPi, arrayMeanCounts, matrixA, row, final_info_array, array_of_composite_bead_arrays, n, max_n, num_for_bead_geometric[j], np.max(num_for_bead_geometric), arrayPi_arraytosave, arrayMeanCounts_arraytosave, matrixA_arraytosave)
 
             #### Get Number of Beads & Composite Bead Detected in Simulated Background  ######
             final_info_array_background, array_of_composite_bead_arrays_background, background, row_b = hmm_analysis_module.find_beads_detected_in_background_simulation(len(data), bin_width, row_b, arrayPi_alliters, arrayMeanCounts_alliters, matrixA_alliters, hmm_analysis[0], hmm_analysis[1], n, 50, final_info_array_background, array_of_composite_bead_arrays_background, num_for_bead_geometric[j], concentration[i], fraction_of_photons_for_subset, hmm_parameters[3])

@@ -10,7 +10,7 @@ def baum_welch_plus_analysis(smoothers, viterbi, time, data, max_num_bins_compos
         fraction_of_photons_for_subset, arrayPi, arrayMeanCounts, matrixA, row, final_info_array,
         array_of_composite_bead_arrays, n, max_n, num_for_bead_geometric, max_num_for_bead_geometric, arrayPi_arraytosave, arrayMeanCounts_arraytosave, matrixA_arraytosave):
     print("row0 ", row)
-    final_info_array, array_of_composite_bead_arrays, row, arrayPi_alliters, arrayMeanCounts_alliters, matrixA_alliters = hmm_BaumWelch_module.with_decoding(
+    final_info_array, array_of_composite_bead_arrays, row, arrayPi_alliters, arrayMeanCounts_alliters, matrixA_alliters, loglikelihood_alliters = hmm_BaumWelch_module.with_decoding(
         smoothers, viterbi, time, data, max_num_bins_composite_bead, max_iterations, concentration, bin_width,
         fraction_of_photons_for_subset, arrayPi, arrayMeanCounts, matrixA, row, final_info_array,
         array_of_composite_bead_arrays, n, max_n, num_for_bead_geometric)
@@ -19,7 +19,7 @@ def baum_welch_plus_analysis(smoothers, viterbi, time, data, max_num_bins_compos
         arrayMeanCounts_alliters, matrixA_alliters, num_for_bead_geometric, max_num_for_bead_geometric)
     print("row1 ", row)
 
-    return arrayPi_alliters, arrayMeanCounts_alliters, matrixA_alliters, final_info_array, array_of_composite_bead_arrays, row, arrayPi_arraytosave, arrayMeanCounts_arraytosave, matrixA_arraytosave
+    return arrayPi_alliters, arrayMeanCounts_alliters, matrixA_alliters, loglikelihood_alliters, final_info_array, array_of_composite_bead_arrays, row, arrayPi_arraytosave, arrayMeanCounts_arraytosave, matrixA_arraytosave
 
 
 def decode_changepoints_compositebead_statistics_savingarrays(smoothers, viterbi, n, forward_likelihood, backwards_likelihood, time, data, max_num_bins_bead, background_mean_counts, row, final_info_array, array_of_composite_bead_arrays, bin_width, concentration, fraction_of_photons_for_subset, loglikelihood, matrixA, arrayMeanCounts, arrayPi, num_iterations, max_iterations, num_for_bead_geometric):
